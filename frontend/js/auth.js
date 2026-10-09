@@ -3,7 +3,7 @@
    Loaded on every authenticated page BEFORE the page-specific script.
    ============================================================ */
 
-const API_BASE_URL = window.CHURN_API_BASE_URL || 'http://localhost:8000';
+const API_BASE_URL = window.CHURN_API_BASE_URL || 'https://telicom-churn.onrender.com' ;
 const TOKEN_KEY = 'churn_access_token';
 const USERNAME_KEY = 'churn_username';
 
