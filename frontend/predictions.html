@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Prediction History — Signal Churn Analytics</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div id="app-shell" data-active="predictions" data-title="Prediction History"></div>
+
+<template id="predictions-template">
+  <div class="flex-between mb-16">
+    <div>
+      <h2 style="margin:0;">All predictions</h2>
+      <div class="text-muted" id="predictions-count-label">Loading…</div>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-toolbar">
+      <div class="search-input">
+        <span class="search-icon">&#128269;</span>
+        <input type="text" id="filter-customer-id" placeholder="Filter by customer ID…" />
+      </div>
+      <select class="filter-select" id="filter-risk">
+        <option value="">All risk levels</option>
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
+      </select>
+      <select class="filter-select" id="filter-result">
+        <option value="">All outcomes</option>
+        <option value="1">Will churn</option>
+        <option value="0">Will stay</option>
+      </select>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Customer ID</th>
+          <th>Probability</th>
+          <th>Outcome</th>
+          <th>Risk Level</th>
+          <th>Model</th>
+        </tr>
+      </thead>
+      <tbody id="predictions-tbody">
+        <tr class="loading-row"><td colspan="6">Loading predictions…</td></tr>
+      </tbody>
+    </table>
+    <div class="pagination" id="pagination"></div>
+  </div>
+</template>
+
+<script src="js/auth.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/predictions.js"></script>
+</body>
+</html>

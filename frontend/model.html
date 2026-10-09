@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Model Performance — Signal Churn Analytics</title>
+<link rel="stylesheet" href="css/style.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div id="app-shell" data-active="model" data-title="Model Performance"></div>
+
+<template id="model-template">
+  <div class="mb-24">
+    <h2 style="margin:0;">Random Forest vs. Logistic Regression</h2>
+    <div class="text-muted" id="model-meta-line">Loading evaluation results…</div>
+  </div>
+
+  <div class="charts-grid" style="grid-template-columns: 1fr 1.2fr;">
+    <div class="chart-card">
+      <h3>Metric comparison</h3>
+      <div class="chart-wrap"><canvas id="chart-metrics-comparison"></canvas></div>
+    </div>
+    <div class="card">
+      <h3 style="margin-bottom:14px;">Random Forest — confusion matrix</h3>
+      <div id="confusion-matrix-grid"></div>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-toolbar"><h3 style="margin:0; font-size:14px;">Metric detail</h3></div>
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Random Forest (primary)</th><th>Logistic Regression (comparison)</th></tr>
+      </thead>
+      <tbody id="metrics-tbody"></tbody>
+    </table>
+  </div>
+</template>
+
+<script src="js/auth.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/model.js"></script>
+</body>
+</html>

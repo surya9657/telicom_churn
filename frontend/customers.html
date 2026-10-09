@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Customers — Signal Churn Analytics</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div id="app-shell" data-active="customers" data-title="Customers"></div>
+
+<template id="customers-template">
+  <div class="flex-between mb-16">
+    <div>
+      <h2 style="margin:0;">Customer directory</h2>
+      <div class="text-muted" id="customer-count-label">Loading…</div>
+    </div>
+    <div class="flex gap-8">
+      <label class="btn btn-secondary" for="import-file-input" style="cursor:pointer;">Import CSV</label>
+      <input type="file" id="import-file-input" accept=".csv" style="display:none;" />
+      <button class="btn btn-primary" id="add-customer-btn">+ Add Customer</button>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-toolbar">
+      <div class="search-input">
+        <span class="search-icon">&#128269;</span>
+        <input type="text" id="search-input" placeholder="Search by customer ID or gender…" />
+      </div>
+      <select class="filter-select" id="filter-contract">
+        <option value="">All contracts</option>
+        <option value="Month-to-month">Month-to-month</option>
+        <option value="One year">One year</option>
+        <option value="Two year">Two year</option>
+      </select>
+      <select class="filter-select" id="filter-internet">
+        <option value="">All internet service</option>
+        <option value="DSL">DSL</option>
+        <option value="Fiber optic">Fiber optic</option>
+        <option value="No">No internet</option>
+      </select>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Customer ID</th>
+          <th>Gender</th>
+          <th>Tenure</th>
+          <th>Contract</th>
+          <th>Internet</th>
+          <th>Monthly Charges</th>
+          <th>Added</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="customers-tbody">
+        <tr class="loading-row"><td colspan="8">Loading customers…</td></tr>
+      </tbody>
+    </table>
+    <div class="pagination" id="pagination"></div>
+  </div>
+</template>
+
+<!-- Add customer modal -->
+<div class="modal-overlay" id="add-modal">
+  <div class="modal" style="width:640px;">
+    <h3>Add a new customer</h3>
+    <p>Every field is validated before the customer is saved.</p>
+    <form id="add-customer-form">
+      <div class="form-grid" id="customer-form-fields"></div>
+      <div class="modal-actions" style="margin-top:20px;">
+        <button type="button" class="btn btn-secondary" id="cancel-add-btn">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="save-customer-btn">Save Customer</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Delete confirm modal -->
+<div class="modal-overlay" id="delete-modal">
+  <div class="modal">
+    <h3>Delete customer?</h3>
+    <p id="delete-modal-text">This will permanently remove the customer and their prediction history.</p>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-secondary" id="cancel-delete-btn">Cancel</button>
+      <button type="button" class="btn btn-danger" id="confirm-delete-btn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Import summary modal -->
+<div class="modal-overlay" id="import-modal">
+  <div class="modal" style="width:480px;">
+    <h3>Import summary</h3>
+    <div id="import-summary-body"></div>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-primary" id="close-import-btn">Done</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/auth.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/customer-form-fields.js"></script>
+<script src="js/customers.js"></script>
+</body>
+</html>

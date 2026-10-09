@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign in — Churn Analytics Platform</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="login-page">
+  <div class="login-visual">
+    <div class="signal-mark" style="height:34px; margin-bottom:28px;">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <h1>Know who's about to leave, while there's still time to act.</h1>
+    <p>
+      Signal is an internal analytics platform that scores every customer's churn risk from a
+      trained Random Forest model, so retention teams can prioritize outreach by probability, not guesswork.
+    </p>
+    <div class="login-stats">
+      <div><div class="n">RF</div><div class="l">Model</div></div>
+      <div><div class="n">ROC-AUC</div><div class="l">Evaluated</div></div>
+      <div><div class="n">Live</div><div class="l">Postgres data</div></div>
+    </div>
+  </div>
+
+  <div class="login-panel">
+    <div class="login-card">
+      <div class="brand-row">
+        <div class="signal-mark"><span></span><span></span><span></span><span></span></div>
+        <div>
+          <div class="brand-name" style="color:var(--text-primary);">Signal</div>
+          <div class="brand-sub" style="color:var(--text-muted);">Churn Analytics</div>
+        </div>
+      </div>
+      <h2>Sign in to your workspace</h2>
+      <div class="sub">Enter your administrator credentials to continue.</div>
+
+      <div class="login-error" id="login-error"></div>
+
+      <form id="login-form">
+        <div class="field">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" autocomplete="username" required />
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" autocomplete="current-password" required />
+        </div>
+        <button type="submit" class="btn btn-primary" id="login-submit">Sign in</button>
+      </form>
+
+      <div class="demo-hint">
+        Default admin (from .env.example): <strong>admin</strong> / <strong>Admin123!</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/auth.js"></script>
+<script>
+  if (Auth.isAuthenticated()) {
+    window.location.replace('dashboard.html');
+  }
+
+  const form = document.getElementById('login-form');
+  const errorBox = document.getElementById('login-error');
+  const submitBtn = document.getElementById('login-submit');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorBox.classList.remove('show');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Signing in…';
+
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value;
+
+    try {
+      const result = await Api.login(username, password);
+      Auth.setSession(result.access_token, result.username);
+      window.location.href = 'dashboard.html';
+    } catch (err) {
+      errorBox.textContent = err.message || 'Login failed. Please check your credentials.';
+      errorBox.classList.add('show');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Sign in';
+    }
+  });
+</script>
+</body>
+</html>

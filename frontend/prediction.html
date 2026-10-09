@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Predict Churn — Signal Churn Analytics</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div id="app-shell" data-active="prediction" data-title="Predict Churn"></div>
+
+<template id="prediction-template">
+  <div class="charts-grid" style="grid-template-columns: 1.4fr 1fr; align-items:start;">
+    <div class="card">
+      <h3 style="margin-bottom:4px;">Customer profile</h3>
+      <p class="text-muted" style="margin-top:0; margin-bottom:18px; font-size:13px;">
+        Enter (or load) a customer's details, then run the trained Random Forest model.
+      </p>
+
+      <div class="field mb-16" style="max-width:320px;">
+        <label for="load-customer-id">Load existing customer (optional)</label>
+        <div class="flex gap-8">
+          <input type="text" id="load-customer-id" placeholder="e.g. CUST-1042" />
+          <button type="button" class="btn btn-secondary btn-sm" id="load-customer-btn">Load</button>
+        </div>
+      </div>
+
+      <form id="prediction-form">
+        <div class="form-grid" id="prediction-form-fields"></div>
+        <button type="submit" class="btn btn-primary" id="predict-btn" style="margin-top:20px;">Predict Churn</button>
+      </form>
+    </div>
+
+    <div class="card" id="result-card">
+      <h3 style="margin-bottom:14px;">Prediction result</h3>
+      <div class="empty-state" id="result-empty">
+        <div class="empty-icon">&#9889;</div>
+        Fill in the form and click "Predict Churn" to see a result here.
+      </div>
+      <div id="result-content" style="display:none;">
+        <div class="stat-label">Churn Probability</div>
+        <div class="stat-value accent" id="result-probability" style="font-size:40px; margin-bottom:14px;">–</div>
+        <div class="progress-track" style="width:100%; height:10px; margin-bottom:18px;">
+          <div class="progress-fill" id="result-progress-fill"></div>
+        </div>
+        <div class="flex-between mb-16">
+          <span class="text-muted">Risk Level</span>
+          <span id="result-risk-badge"></span>
+        </div>
+        <div class="flex-between mb-16">
+          <span class="text-muted">Prediction</span>
+          <span id="result-prediction-text" style="font-weight:600;">–</span>
+        </div>
+        <div class="flex-between mb-16">
+          <span class="text-muted">Model Used</span>
+          <span class="mono" id="result-model">–</span>
+        </div>
+        <div class="flex-between">
+          <span class="text-muted">Predicted At</span>
+          <span id="result-timestamp">–</span>
+        </div>
+        <a href="#" class="btn btn-secondary" id="view-customer-link" style="width:100%; margin-top:20px; justify-content:center;">View Customer Details</a>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script src="js/auth.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/customer-form-fields.js"></script>
+<script src="js/prediction.js"></script>
+</body>
+</html>

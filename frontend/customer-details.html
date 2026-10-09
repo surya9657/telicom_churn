@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Customer Details — Signal Churn Analytics</title>
+<link rel="stylesheet" href="css/style.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div id="app-shell" data-active="customers" data-title="Customer Details"></div>
+
+<template id="detail-template">
+  <a href="customers.html" class="text-muted" style="font-size:13px; display:inline-block; margin-bottom:14px;">&larr; Back to customers</a>
+
+  <div id="detail-body">
+    <div class="empty-state"><div class="empty-icon">&#8987;</div>Loading customer…</div>
+  </div>
+</template>
+
+<template id="detail-content-template">
+  <div class="flex-between mb-24">
+    <div>
+      <h2 style="margin:0;" class="mono" id="detail-customer-id">–</h2>
+      <div class="text-muted" id="detail-subtitle">–</div>
+    </div>
+    <div class="flex gap-8">
+      <a class="btn btn-primary" id="predict-again-link" href="prediction.html">Run New Prediction</a>
+    </div>
+  </div>
+
+  <div class="stat-grid" style="grid-template-columns: repeat(4, 1fr);">
+    <div class="stat-card">
+      <div class="stat-label">Current Churn Probability</div>
+      <div class="stat-value accent" id="detail-probability">–</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Risk Level</div>
+      <div class="stat-value" id="detail-risk-badge">–</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Last Prediction</div>
+      <div class="stat-value" style="font-size:15px;" id="detail-last-date">–</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Tenure</div>
+      <div class="stat-value" id="detail-tenure">–</div>
+    </div>
+  </div>
+
+  <div class="charts-grid" style="grid-template-columns: 1.3fr 1fr;">
+    <div class="chart-card">
+      <h3>Prediction Probability History</h3>
+      <div class="chart-wrap" id="history-chart-wrap"><canvas id="chart-probability-history"></canvas></div>
+    </div>
+    <div class="card">
+      <h3 style="margin-bottom:14px;">Customer profile</h3>
+      <div id="profile-fields" style="display:flex; flex-direction:column; gap:10px; font-size:13.5px;"></div>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-toolbar"><h3 style="margin:0; font-size:14px;">Prediction history</h3></div>
+    <table>
+      <thead>
+        <tr><th>Date</th><th>Probability</th><th>Result</th><th>Risk Level</th><th>Model</th></tr>
+      </thead>
+      <tbody id="history-tbody"></tbody>
+    </table>
+  </div>
+</template>
+
+<script src="js/auth.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/customer-details.js"></script>
+</body>
+</html>
